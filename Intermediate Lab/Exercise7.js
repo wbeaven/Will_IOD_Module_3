@@ -34,10 +34,14 @@ const books = [
 function getBookTitle(bookId) {
   return books.find(({ id }) => id == bookId);
 }
-console.log(getBookTitle(3));
+// console.log(getBookTitle(3));
 
 function getOldBooks() {
-  let result = books.filter(year < 1950);
-  return result;
+  return books.filter(({year}) => year < 1950);
 }
-console.log(result);
+// console.log(getOldBooks());
+
+function addGenre() {
+  return books.map(book => ({ ...book, genre: "classic" }));
+}
+// console.log(addGenre());
