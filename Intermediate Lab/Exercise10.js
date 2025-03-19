@@ -20,8 +20,33 @@ console.log(
   } seconds have passed today`
 );
 
-// console.log(`I am ${today.getFullYear() - 2000} years, ${Math.abs((today.getMonth() + 1) - 11)} months, ${Math.abs(today.getDate() - 16)} and days old`)
-const bday = new Date(2000, 10, 17);
-console.log(today.getFullYear() - bday.getFullYear());
+function calculateAge(birthDate) {
+  const bday = new Date(birthDate);
 
-function calculateBday() {}
+  let years = today.getFullYear() - bday.getFullYear();
+  let months = today.getMonth() - bday.getMonth();
+  let days = today.getDate() - bday.getDate();
+
+  if (days < 0) {
+    months --;
+    let previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += previousMonth.getDate();
+  }
+
+  if (months < 0) {
+    years --;
+    months += 12;
+  }
+  return `I am ${years} years, ${months} months, and ${days} days old.`;
+}
+console.log(calculateAge("20 August 1967"));
+
+function daysInBetween(date1, date2) {
+  const firstDate = new Date(date1);
+  const secondDate = new Date(date2);
+  let days = 0;
+  
+  days = Math.abs((new Date(date1) - new Date(date2)) / 86400000).toFixed();
+  return `There are ${days} days between ${date1} and ${date2}`;
+}
+console.log(daysInBetween("13 February 1969","16 November 2000"));
