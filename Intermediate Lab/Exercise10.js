@@ -28,13 +28,13 @@ function calculateAge(birthDate) {
   let days = today.getDate() - bday.getDate();
 
   if (days < 0) {
-    months --;
+    months--;
     let previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
     days += previousMonth.getDate();
   }
 
   if (months < 0) {
-    years --;
+    years--;
     months += 12;
   }
   return `I am ${years} years, ${months} months, and ${days} days old.`;
@@ -45,8 +45,8 @@ function daysInBetween(date1, date2) {
   const firstDate = new Date(date1);
   const secondDate = new Date(date2);
   let days = 0;
-  
+
   days = Math.abs((new Date(date1) - new Date(date2)) / 86400000).toFixed();
   return `There are ${days} days between ${date1} and ${date2}`;
 }
-console.log(daysInBetween("13 February 1969","16 November 2000"));
+console.log(daysInBetween("13 February 1969", "16 November 2000"));
