@@ -3,6 +3,7 @@
 // requests. See https://www.techtarget.com/whatis/definition/debouncing
 // It's often used to handle fast-firing scrolling events in a browser, or to prevent multiple server
 // requests being initiated if a user clicks repeatedly on a button.
+
 // Using the following code to test and start with:
 // a) Create a debounce(func) decorator, which is a wrapper that takes a function func and
 // suspends calls to func until there's 1000 milliseconds of inactivity. After this 1 second
@@ -12,12 +13,22 @@
 // c) Extend debounce to allow the original debounced function printMe to take an argument
 // msg which is included in the console.log statement.
 
-function printMe() {
-console.log('printing debounced message')
+function printMe(msg) {
+  console.log(msg);
 }
-printMe = debounce(printMe); //create this debounce function for a)
-//fire off 3 calls to printMe within 300ms - only the LAST one should print, after
-1000ms of no calls
-setTimeout( printMe, 100);
-setTimeout( printMe, 200);
-setTimeout( printMe, 300);
+
+function debounce(func, ms) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => func(...args), ms);
+  };
+}
+
+printMe = debounce(printMe, 1500);
+
+// fire off 3 calls to printMe within 300ms - only the LAST one should print, after
+// 1500ms of no calls
+setTimeout(() => printMe('First call'), 100);
+setTimeout(() => printMe('Second call'), 200);
+setTimeout(() => printMe('Third call'), 300);

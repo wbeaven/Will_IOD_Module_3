@@ -42,8 +42,6 @@ function calculateAge(birthDate) {
 console.log(calculateAge("20 August 1967"));
 
 function daysInBetween(date1, date2) {
-  const firstDate = new Date(date1);
-  const secondDate = new Date(date2);
   let days = 0;
 
   days = Math.abs((new Date(date1) - new Date(date2)) / 86400000).toFixed();

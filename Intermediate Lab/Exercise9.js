@@ -31,3 +31,4 @@ function topEarner(salaries) {
   return Object.keys(salaries).find((key) => salaries[key] == highest);
 }
 console.log(topEarner(salaries));
+// make sortable, go from largest to smallest
