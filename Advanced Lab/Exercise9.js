@@ -9,6 +9,15 @@
 // d) Try to update the then and catch messages to include the random delay value
 
 function randomDelay() {
-  // your code
+  let raNum = Math.round(Math.random() * (20 - 1) + 1);
+  return new Promise((resolve, reject) => {
+    raNum % 2 == 0
+      ? setTimeout(resolve, raNum * 1000, raNum)
+      : setTimeout(reject, raNum * 1000, raNum);
+  });
 }
-randomDelay().then(() => console.log("There appears to have been a delay."));
+randomDelay()
+  .then((raNum) =>
+    console.log(`There appears to have been a delay of ${raNum} seconds.`)
+  )
+  .catch((raNum) => console.log(`Rejected after ${raNum} seconds, sorry :/`));

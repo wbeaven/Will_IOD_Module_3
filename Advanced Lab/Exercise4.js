@@ -10,6 +10,7 @@
 
 let a = 1;
 let b = 0;
+let c = 0;
 function fibonacci() {
   c = a + b;
   a = b;

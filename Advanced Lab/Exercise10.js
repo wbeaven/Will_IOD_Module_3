@@ -15,6 +15,7 @@
 
 import fetch from "node-fetch";
 globalThis.fetch = fetch;
+
 function fetchURLData(url) {
   let fetchPromise = fetch(url).then((response) => {
     if (response.status === 200) {
@@ -25,7 +26,39 @@ function fetchURLData(url) {
   });
   return fetchPromise;
 }
-
 fetchURLData("https://jsonplaceholder.typicode.com/todos/1")
   .then((data) => console.log(data))
   .catch((error) => console.error(error.message));
+
+async function fetchURLDataAsync(url) {
+  try {
+    const response = await fetch(url);
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+  } catch (error) {
+    throw new Error(`Fetch error: ${error.message}`);
+  }
+}
+fetchURLDataAsync("https://jsonplaceholder.typicode.com/todos/3")
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error.message));
+
+async function fetchMultipleURLs(urls) {
+  try {
+    const results = await Promise.all(urls.map(fetchURLDataAsync));
+    return results;
+  } catch (error) {
+    console.error("Error fetching multiple URLs:", error.message);
+    return [];
+  }
+}
+const urls = [
+  "https://jsonplaceholder.typicode.com/todos/4",
+  "https://jsonplaceholder.typicode.com/todos/2",
+  // "tthssvs.com",
+  // "dq9nni.com",
+];
+fetchMultipleURLs(urls).then((data) => console.log("Multiple URLs Response:", data));
