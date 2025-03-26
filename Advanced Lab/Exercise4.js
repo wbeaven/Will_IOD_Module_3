@@ -21,7 +21,7 @@ function printFibonacci(limit) {
   let tickId = setInterval(() => console.log(fibonacci()), 1000);
   setTimeout(() => clearInterval(tickId), (limit + 1) * 1000);
 }
-// printFibonacci(10);
+printFibonacci(10);
 
 const printFibonaccitTimeouts = () => {
   console.log(fibonacci());
