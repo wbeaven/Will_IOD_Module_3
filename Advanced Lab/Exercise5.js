@@ -2,6 +2,14 @@
 // description. When calling the function normally this works as expected, but using it from
 // within setTimeout fails. Why?
 
+// a) Fix the setTimeout call by wrapping the call to car.description() inside a
+// function
+// b) Change the year for the car by creating a clone of the original and overriding it
+// c) Does the delayed description() call use the original values or the new values from b)? Why?
+// d) Use bind to fix the description method so that it can be called from within setTimeout without a wrapper function
+// e) Change another property of the car by creating a clone and overriding it, and test that
+// setTimeout still uses the bound value from d)
+
 let car = {
   make: "Porsche",
   model: "911",
@@ -12,16 +20,15 @@ let car = {
   },
 };
 car.description();
+setTimeout(() => car.description(), 1000); // Wrapped
 
-const bound = car.description.bind(car);
-bound.year = 1999;
-setTimeout(() => bound(), 200);
+let cloneCar = { ...car }; // Doesn't change original
+cloneCar.year = 1999;
+setTimeout(() => cloneCar.description(), 2000); // Cloned
 
-// a) Fix the setTimeout call by wrapping the call to car.description() inside a
-// function
-// b) Change the year for the car by creating a clone of the original and overriding it
-// c) Does the delayed description() call use the original values or the new values from b)? Why?
-// d) Use bind to fix the description method so that it can be called from within
-// setTimeout without a wrapper function
-// e) Change another property of the car by creating a clone and overriding it, and test that
-// setTimeout still uses the bound value from d)
+const boundCar = car.description.bind(car);
+setTimeout(boundCar, 3000); // Bound
+
+let secondClone = car; // Changes original
+secondClone.model = 1337;
+setTimeout(boundCar, 4000);
